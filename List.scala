@@ -103,24 +103,22 @@ object List {
 
     def sumWith(as1: List[Int], as2: List[Int]): List[Int] =
         (as1, as2) match {
-            case (Nil, _) => Nil
-            case (_, Nil) => Nil
             case (Cons(x1, xs1), Cons(x2, xs2)) =>
                 Cons(x1 + x2, sumWith(xs1, xs2))
+            case _ => Nil
         }
 
     def zipWith[A](as1: List[A], as2: List[A])(f: (A,A) => A): List[A] =
         (as1, as2) match {
-            case (Nil, _) => Nil
-            case (_, Nil) => Nil
             case (Cons(x1, xs1), Cons(x2, xs2)) =>
                 Cons(f(x1, x2), zipWith(xs1, xs2)(f))
+            case _ => Nil
         }
 
     def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
         (sup, sub) match {
-            case (Nil, _) => false
             case (_, Nil) => true
+            case (Nil, _) => false
             case (Cons(x1, xs1), Cons(x2, xs2)) if(x1 == x2) =>
                 hasSubsequence(xs1, xs2)
             case (Cons(x1, xs1), Cons(x2, xs2)) =>
